@@ -1,6 +1,7 @@
 # nb
 
 A new, exciting programming language powered by n-bodies simulations.
+This joke language is a submission to PLT games.
 
 ## Semantics
 
@@ -9,6 +10,16 @@ is a planetary body. The virtual machine runs an n-body simulation
 on the objects, and for each collision at timestep `t`, the virtual
 machine emits the ascii character `t % 256`.
 
+A collision is defined by two bodies being within distance 1 on any timestep.
+If this occurs, after outputting the character, the two bodies are combined
+by averaging their positions, determining the resulting velocity, and combining the masses,
+as in a rigid, sticky collision.
+
+The first tick is 1. The universal gravitational constant is 1.
+
+### Unusual Semantics
+
+The virtual machine is tick-based. This means that any collisions that occur between ticks are NOT COUNTED. This means that objects can teleport through each other.
 
 ## Syntax
 
@@ -17,5 +28,10 @@ where `px` and `py` specifies the initial position, `vx` and `vy` specify the in
 
 ## Usage
 
-    $ ./bin/nb-compile foo.nb > foo.nbc
-    $ ./foo.nbc
+    $ cat program.nb | ruby nb.rb
+
+## Hello World
+
+Okay, "hello world" is too complex. Let's do "hi":
+
+    $ echo -e "55.7 0 0 0 1\n0 0 0 0 1\n10000 0 0 0 1\n10059.4 0 0 0 1" | ruby nb.rb 
